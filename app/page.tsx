@@ -35,13 +35,14 @@ const firebaseConfig = {
 };
 
 // --- Inisialisasi Firebase ---
-// Melakukan pengecekan untuk menghindari inisialisasi ganda
+// Mencegah inisialisasi ganda
 let app;
 try {
-    app = initializeApp(firebaseConfig);
+  app = initializeApp(firebaseConfig);
 } catch (e) {
-    console.error("Firebase initialization error:", e);
+  console.error("Firebase initialization error", e);
 }
+
 const auth = getAuth(app);
 const db = getFirestore(app);
 
@@ -57,7 +58,7 @@ const getSettings = async () => {
             return {};
         }
     } catch (error) {
-        console.error("Gagal mengambil pengaturan:", error);
+        console.error("Error getting settings:", error);
         return {};
     }
 };
@@ -135,7 +136,7 @@ const AnalysisModal = ({ show, onClose, analysisResult, isLoading }) => {
             <div className="bg-white rounded-lg shadow-xl p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
                 <div className="flex justify-between items-center mb-4">
                     <h2 className="text-2xl font-bold text-gray-800">✨ Analisis & Ide</h2>
-                    <button onClick={onClose} className="text-gray-500 hover:text-gray-800 text-3xl">&times;</button>
+                    <button onClick={onClose} className="text-gray-500 hover:text-gray-800">&times;</button>
                 </div>
                 {isLoading ? (
                      <div className="text-center py-10"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div><p className="mt-4">AI sedang menganalisis...</p></div>
@@ -302,7 +303,7 @@ const GeneratorPage = ({ user, setPage }) => {
             setGeneratedScript(scriptPart);
             setGeneratedHashtags(hashtagPart);
             
-            if (user.role === 'pro') {
+            if (user?.role === 'pro') {
                 saveScriptToHistory(scriptPart, hashtagPart);
             }
 
@@ -422,4 +423,5 @@ const GeneratorPage = ({ user, setPage }) => {
                             <div className="mt-2 flex space-x-4">
                                 <label><input type="checkbox" name="tiktok" checked={platforms.tiktok} onChange={handlePlatformChange} className="mr-2"/> TikTok</label>
                                 <label><input type="checkbox" name="reels" checked={platforms.reels} onChange={handlePlatformChange} className="mr-2"/> Instagram Reels</label>
-                                <label><input type="checkbox" name="shorts" checked={platforms.shorts} onChange={handlePlatformChange} 
+                                <label><input type="checkbox" name="shorts" checked={platforms.shorts} onChange={handlePlatformChange} className="mr-2"/> YouTube Shorts</label>
+    
